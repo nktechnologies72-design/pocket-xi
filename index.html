@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#101312" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Pocket XI" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <title>Pocket XI</title>
+    <link rel="stylesheet" href="styles.css?v=20260528-11" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="side-rail" aria-label="Primary">
+        <div class="brand">
+          <span class="brand-mark">PXI</span>
+          <span>
+            <strong>Pocket XI</strong>
+            <small>Ultimate club</small>
+          </span>
+        </div>
+        <nav class="nav-tabs" aria-label="Game sections">
+          <button class="nav-tab is-active" data-view="home" title="Home">Home</button>
+          <button class="nav-tab" data-view="squad" title="Team">Team</button>
+          <button class="nav-tab" data-view="packs" title="Store">Store</button>
+          <button class="nav-tab" data-view="market" title="Market">Market</button>
+          <button class="nav-tab" data-view="match" title="Match">Play</button>
+          <button class="nav-tab" data-view="event" title="Event">Event</button>
+          <button class="nav-tab" data-view="help" title="How to Play">Help</button>
+        </nav>
+      </aside>
+
+      <main class="game-stage">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Season Zero</p>
+            <h1 id="screenTitle">Club Central</h1>
+            <p class="version-tag">Build 2026.05.28.11</p>
+          </div>
+          <div class="wallet">
+            <span>Coins</span>
+            <strong id="coinCount">0</strong>
+          </div>
+        </header>
+
+        <section class="view is-active" id="homeView" data-view-panel="home">
+          <div class="dashboard-grid">
+            <article class="club-panel pitch-hero">
+              <div>
+                <p class="eyebrow">Ready squad</p>
+                <h2 id="clubName">Metro Strikers</h2>
+                <p class="muted">Build chemistry, train prospects, trade smart, then take the XI into quick attack matches.</p>
+              </div>
+              <div class="rating-ring">
+                <span id="teamRating">0</span>
+                <small>OVR</small>
+              </div>
+            </article>
+
+            <article class="club-panel stat-panel">
+              <h2>Club Status</h2>
+              <div class="stat-grid">
+                <span>Level</span><strong id="clubLevel">1</strong>
+                <span>Division</span><strong id="clubDivision">10</strong>
+                <span>Chemistry</span><strong id="teamChemistry">0</strong>
+                <span>Season Points</span><strong id="seasonPoints">0</strong>
+                <span>Collection</span><strong id="collectionCount">0</strong>
+                <span>Real Cards</span><strong id="realCount">0</strong>
+                <span>Training</span><strong id="trainingTokens">0</strong>
+                <span>Trophies</span><strong id="trophyCount">0</strong>
+              </div>
+              <div class="progress-track"><span id="xpBar"></span></div>
+            </article>
+
+            <article class="club-panel">
+              <h2>Club Objectives</h2>
+              <div class="tool-row">
+                <button class="secondary-action" id="claimObjectivesBtn">Claim</button>
+                <button class="secondary-action" id="scoutBtn">Scout</button>
+              </div>
+              <div class="objective-list" id="objectiveList"></div>
+            </article>
+
+            <article class="club-panel">
+              <h2>Daily Club</h2>
+              <p class="muted">Claim coins once per day and recover your squad before a match run.</p>
+              <div class="tool-row">
+                <button class="secondary-action" id="dailyRewardBtn">Daily Gift</button>
+                <button class="secondary-action" id="recoverSquadBtn">Recover</button>
+              </div>
+            </article>
+
+            <article class="club-panel">
+              <h2>Match Rewards</h2>
+              <p class="muted">Win quick matches to earn coins, XP, division progress, and form boosts.</p>
+              <button class="primary-action" data-jump="match">Play Match</button>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="squadView" data-view-panel="squad">
+          <div class="squad-layout">
+            <div class="formation-board" id="formationBoard" aria-label="Starting eleven"></div>
+            <aside class="club-panel squad-side">
+              <h2>Squad Tools</h2>
+              <div class="tool-row">
+                <button class="secondary-action" id="autoSquadBtn">Auto XI</button>
+                <button class="secondary-action" id="trainBtn">Train</button>
+              </div>
+              <button class="secondary-action wide-action" id="sbcBtn">SBC Upgrade</button>
+              <select id="tacticSelect" aria-label="Squad tactic">
+                <option value="Balanced">Balanced</option>
+                <option value="Pressing">Pressing</option>
+                <option value="Counter">Counter</option>
+              </select>
+              <select id="formationSelect" aria-label="Formation">
+                <option value="4-3-3">4-3-3</option>
+                <option value="4-4-2">4-4-2</option>
+                <option value="4-2-3-1">4-2-3-1</option>
+                <option value="3-5-2">3-5-2</option>
+                <option value="5-3-2">5-3-2</option>
+              </select>
+              <p class="muted" id="squadHint">Select a starter, then swap or train.</p>
+              <h2>Bench</h2>
+              <div class="player-list" id="benchList"></div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="view" id="packsView" data-view-panel="packs">
+          <div class="packs-layout">
+            <article class="pack-card">
+              <div class="pack-art">PXI</div>
+              <h2>Pack Store</h2>
+              <p class="muted">Open packs for players, training boosts, and club XP.</p>
+              <button class="primary-action" data-pack="gold">Gold Pack 750</button>
+              <button class="secondary-action" data-pack="elite">Elite Pack 2,500</button>
+              <button class="secondary-action" data-pack="icon">Icon Pack 5,000</button>
+            </article>
+            <div class="club-panel">
+              <h2>Pack Reveal</h2>
+              <div class="reveal-grid" id="packReveal"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="view" id="marketView" data-view-panel="market">
+          <div class="market-toolbar">
+            <div>
+              <p class="eyebrow">Live listings</p>
+              <h2>Transfer Market</h2>
+            </div>
+            <select id="marketFilter" aria-label="Filter market">
+              <option value="ALL">All positions</option>
+              <option value="ST">ST</option>
+              <option value="MID">MID</option>
+              <option value="DEF">DEF</option>
+              <option value="GK">GK</option>
+            </select>
+            <input id="marketSearch" type="search" placeholder="Search player" aria-label="Search player" />
+            <button class="secondary-action compact-action" id="refreshMarketBtn">Refresh</button>
+          </div>
+          <div class="market-grid" id="marketGrid"></div>
+        </section>
+
+        <section class="view" id="matchView" data-view-panel="match">
+          <div class="match-layout">
+            <div class="match-wrap">
+              <canvas id="matchCanvas" width="960" height="560" aria-label="Football match canvas"></canvas>
+              <div class="touch-controls" aria-label="Match controls">
+                <button data-control="left">Left</button>
+                <button data-control="skill">Skill</button>
+                <button data-control="shoot">Shoot</button>
+                <button data-control="right">Right</button>
+              </div>
+            </div>
+            <aside class="club-panel match-panel">
+              <h2>Quick Attack</h2>
+              <div class="scoreline">
+                <span>You</span>
+                <strong id="playerScore">0</strong>
+                <span>Rivals</span>
+                <strong id="rivalScore">0</strong>
+              </div>
+              <div class="stat-grid match-stats">
+                <span>Chances</span><strong id="chanceCount">0</strong>
+                <span>Power</span><strong id="attackPower">0</strong>
+                <span>Streak</span><strong id="winStreak">0</strong>
+              </div>
+              <p class="muted" id="matchStatus">Move the striker, use skill, time the shot, and beat the keeper.</p>
+              <button class="primary-action" id="startMatchBtn">Start Match</button>
+            </aside>
+          </div>
+        </section>
+
+        <section class="view" id="eventView" data-view-panel="event">
+          <div class="event-layout">
+            <article class="club-panel event-hero">
+              <p class="eyebrow">Limited event</p>
+              <h2>Road to Glory</h2>
+              <p class="muted">Complete event tasks, earn star tokens, and launch high-rated promo cards for your club.</p>
+              <div class="event-stats">
+                <span>Star Tokens</span><strong id="eventTokens">0</strong>
+                <span>Energy</span><strong id="eventEnergy">0</strong>
+              </div>
+              <button class="primary-action" id="playEventBtn">Play Event Match</button>
+            </article>
+
+            <article class="club-panel">
+              <h2>Unlimited Event Path</h2>
+              <div class="event-task-list" id="eventTaskList"></div>
+              <button class="secondary-action wide-action" id="claimEventBtn">Claim Path Rewards</button>
+            </article>
+
+            <article class="club-panel event-pack-panel">
+              <h2>Promo Launch</h2>
+              <p class="muted">Costs 6 star tokens. Guarantees an 88+ event card, with a chance at 94-97 icons.</p>
+              <button class="primary-action" id="eventPackBtn">Launch Promo Card</button>
+              <div class="reveal-grid" id="eventReveal"></div>
+            </article>
+
+            <article class="club-panel event-choice-panel">
+              <h2>Event Draft</h2>
+              <p class="muted">Costs 4 energy. Draft one of three 90+ event cards.</p>
+              <button class="secondary-action wide-action" id="eventDraftBtn">Start Draft</button>
+              <div class="choice-grid" id="eventDraftChoices"></div>
+            </article>
+
+            <article class="club-panel event-choice-panel">
+              <h2>Event Pick</h2>
+              <p class="muted">Costs 8 star tokens. Pick one of three 92+ promo cards.</p>
+              <button class="secondary-action wide-action" id="eventPickBtn">Open Pick</button>
+              <div class="choice-grid" id="eventPickChoices"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="helpView" data-view-panel="help">
+          <div class="help-layout">
+            <article class="club-panel help-panel">
+              <p class="eyebrow">Keyboard guide</p>
+              <h2>How to Play</h2>
+              <div class="key-grid">
+                <span class="keycap">Left</span>
+                <div>
+                  <strong>Move left</strong>
+                  <small>Hold the left arrow to move your striker before shooting.</small>
+                </div>
+                <span class="keycap">Right</span>
+                <div>
+                  <strong>Move right</strong>
+                  <small>Hold the right arrow to aim toward the other side of goal.</small>
+                </div>
+                <span class="keycap">Shift</span>
+                <div>
+                  <strong>Skill move</strong>
+                  <small>Use a quick burst to dodge defenders before taking your shot.</small>
+                </div>
+                <span class="keycap">Space</span>
+                <div>
+                  <strong>Shoot</strong>
+                  <small>Time your shot after moving or using skill. Curve changes slightly each moment.</small>
+                </div>
+              </div>
+            </article>
+
+            <article class="club-panel help-panel">
+              <p class="eyebrow">Game flow</p>
+              <h2>Build, Upgrade, Play</h2>
+              <div class="guide-list">
+                <p><strong>Team:</strong> choose formation, tactics, Auto XI, training, and SBC upgrades.</p>
+                <p><strong>Store:</strong> open Gold, Elite, or Icon packs to add players to your club.</p>
+                <p><strong>Market:</strong> search or buy players with coins.</p>
+                <p><strong>Play:</strong> you get 8 chances. Score more than rivals to earn coins, XP, and season points.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        document.documentElement.classList.add("phone-chrome-ready");
+      }
+      window.pxiFallbackShowView = function (view) {
+        document.querySelectorAll(".nav-tab").forEach(function (button) {
+          button.classList.toggle("is-active", button.dataset.view === view);
+        });
+        document.querySelectorAll(".view").forEach(function (panel) {
+          panel.classList.toggle("is-active", panel.dataset.viewPanel === view);
+        });
+        var title = document.querySelector("#screenTitle");
+        if (title) {
+          title.textContent = {
+            home: "Club Central",
+            squad: "Squad Builder",
+            packs: "Pack Store",
+            market: "Transfer Market",
+            match: "Quick Attack",
+            event: "Road to Glory",
+            help: "How to Play",
+          }[view] || "Club Central";
+        }
+      };
+      document.querySelectorAll(".nav-tab").forEach(function (button) {
+        button.addEventListener("click", function () {
+          window.pxiFallbackShowView(button.dataset.view);
+        });
+      });
+      document.querySelectorAll("[data-jump]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          window.pxiFallbackShowView(button.dataset.jump);
+        });
+      });
+      if ("serviceWorker" in navigator && location.protocol !== "file:") {
+        navigator.serviceWorker.register("./service-worker.js").catch(function () {});
+      }
+    </script>
+    <script src="app.js?v=20260528-11"></script>
+  </body>
+</html>
